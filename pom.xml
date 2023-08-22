@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>treasure-adventure</name>
-  <url>http://www.example.com</url>
+  <url>https://github.com/pedro-m-g/treasure-adventure</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
