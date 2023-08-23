@@ -12,23 +12,27 @@ public class GamePanel extends JPanel implements Runnable {
   private static final int ORIGINAL_TILE_SIZE = 16;
   private static final int SCALE_FACTOR = 3;
   private static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE_FACTOR;
+
   private static final int SCREEN_COLUMNS = 16;
   private static final int SCREEN_ROWS = 12;
+
   private static final int SCREEN_WIDTH = SCREEN_COLUMNS * TILE_SIZE;
   private static final int SCREEN_HEIGHT = SCREEN_ROWS * TILE_SIZE;
-  private static final int NANOSECONDS_PER_SECOND = 1_000_000_000;
-  private static final int NANOSECONDS_PER_MILLISECOND = 1_000_000;
+
   private static final int FRAMES_PER_SECOND = 60;
-  private static final double DRAW_INTERVAL = NANOSECONDS_PER_SECOND / FRAMES_PER_SECOND;
 
   private transient Thread gameThread;
-  private transient KeyboardHandler keyboardHandler = new KeyboardHandler();
+  private final transient KeyboardHandler keyboardHandler;
+  private final transient FPSClock fpsClock;
 
   private int playerX = 100;
   private int playerY = 100;
   private int playerSpeed = 4;
 
   public GamePanel() {
+    keyboardHandler = new KeyboardHandler();
+    fpsClock = new FPSClock(FRAMES_PER_SECOND);
+
     setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
@@ -43,24 +47,10 @@ public class GamePanel extends JPanel implements Runnable {
 
   @Override
   public void run() {
-    double nextDrawTime = System.nanoTime() + DRAW_INTERVAL;
-
     while (gameThread != null) {
       update();
       repaint();
-
-      try {
-        double remainingTimeNanos = nextDrawTime - System.nanoTime();
-        long remainingTimeMillis = (long) (remainingTimeNanos / NANOSECONDS_PER_MILLISECOND);
-        if (remainingTimeMillis < 0) {
-          remainingTimeMillis = 0;
-        }
-        Thread.sleep(remainingTimeMillis);
-        nextDrawTime += DRAW_INTERVAL;
-      } catch (InterruptedException ex) {
-        ex.printStackTrace();
-        Thread.currentThread().interrupt();
-      }
+      fpsClock.tick();
     }
   }
 
