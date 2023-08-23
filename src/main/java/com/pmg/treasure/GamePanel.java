@@ -9,17 +9,10 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
 
-  private static final int ORIGINAL_TILE_SIZE = 16;
-  private static final int SCALE_FACTOR = 3;
-  private static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE_FACTOR;
+  private final int tileSize;
 
-  private static final int SCREEN_COLUMNS = 16;
-  private static final int SCREEN_ROWS = 12;
-
-  private static final int SCREEN_WIDTH = SCREEN_COLUMNS * TILE_SIZE;
-  private static final int SCREEN_HEIGHT = SCREEN_ROWS * TILE_SIZE;
-
-  private static final int FRAMES_PER_SECOND = 60;
+  private final int screenWidth;
+  private final int screenHeight;
 
   private transient Thread gameThread;
   private final transient KeyboardHandler keyboardHandler;
@@ -29,11 +22,21 @@ public class GamePanel extends JPanel implements Runnable {
   private int playerY = 100;
   private int playerSpeed = 4;
 
-  public GamePanel() {
-    keyboardHandler = new KeyboardHandler();
-    fpsClock = new FPSClock(FRAMES_PER_SECOND);
+  public GamePanel(
+    int originalTileSize,
+    int scaleFactor,
+    int screenColumns,
+    int screenRows,
+    int framesPerSecond
+  ) {
+    this.tileSize = originalTileSize * scaleFactor;
+    this.screenWidth = screenColumns * this.tileSize;
+    this.screenHeight = screenRows * this.tileSize;
 
-    setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+    keyboardHandler = new KeyboardHandler();
+    fpsClock = new FPSClock(framesPerSecond);
+
+    setPreferredSize(new Dimension(screenWidth, screenHeight));
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
     addKeyListener(keyboardHandler);
@@ -75,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     Graphics2D g2 = (Graphics2D) g;
     g2.setColor(Color.WHITE);
-    g2.fillRect(playerX, playerY, TILE_SIZE, TILE_SIZE);
+    g2.fillRect(playerX, playerY, tileSize, tileSize);
     g2.dispose();
   }
 
