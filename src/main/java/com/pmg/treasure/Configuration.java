@@ -31,17 +31,17 @@ public class Configuration {
     }
   }
 
-  public String getConfig(String key) {
+  public String getString(String key) {
     return Optional.ofNullable(properties.getProperty(key))
-            .map(Object::toString)
-            .orElseThrow(() -> new ConfigurationKeyNotFoundException(key));
+        .map(Object::toString)
+        .orElseThrow(() -> new ConfigurationKeyNotFoundException(key));
   }
 
-  public int getConfigAsInt(String key) {
+  public int getInt(String key) {
     return Optional.ofNullable(properties.getProperty(key))
-            .map(Object::toString)
-            .map(Integer::parseInt)
-            .orElseThrow(() -> new ConfigurationKeyNotFoundException(key));
+        .map(Object::toString)
+        .map(Integer::parseInt)
+        .orElseThrow(() -> new ConfigurationKeyNotFoundException(key));
   }
 
 }
