@@ -10,11 +10,8 @@ public class Configuration {
   public static final String APP_FRAMES_PER_SECOND = "app.frames_per_second";
   public static final String TILES_ORIGINAL_SIZE_PX = "tiles.original_size_px";
   public static final String TILES_SCALE_FACTOR = "tiles.scale_factor";
-  public static final String TILES_SCALED_SIZE_PX = "tiles.scaled_size_px";
   public static final String SCREEN_COLUMNS = "screen.columns";
   public static final String SCREEN_ROWS = "screen.rows";
-  public static final String SCREEN_WIDTH_PX = "screen.width_px";
-  public static final String SCREEN_HEIGHT_PX = "screen.height_px";
 
   private Properties properties;
 

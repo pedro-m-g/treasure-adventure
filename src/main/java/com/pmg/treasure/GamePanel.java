@@ -11,9 +11,6 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final int tileSize;
 
-  private final int screenWidth;
-  private final int screenHeight;
-
   private transient Thread gameThread;
   private final transient KeyboardHandler keyboardHandler;
   private final transient FPSClock fpsClock;
@@ -23,24 +20,15 @@ public class GamePanel extends JPanel implements Runnable {
   private int playerSpeed = 4;
 
   public GamePanel(
-    int originalTileSize,
-    int scaleFactor,
-    int screenColumns,
-    int screenRows,
+    int tileSize,
+    int screenWidth,
+    int screenHeight,
     int framesPerSecond
   ) {
-    this.tileSize = originalTileSize * scaleFactor;
-    this.screenWidth = screenColumns * this.tileSize;
-    this.screenHeight = screenRows * this.tileSize;
-
-    keyboardHandler = new KeyboardHandler();
-    fpsClock = new FPSClock(framesPerSecond);
-
-    setPreferredSize(new Dimension(screenWidth, screenHeight));
-    setBackground(Color.BLACK);
-    setDoubleBuffered(true);
-    addKeyListener(keyboardHandler);
-    setFocusable(true);
+    this.tileSize = tileSize;
+    this.keyboardHandler = new KeyboardHandler();
+    this.fpsClock = new FPSClock(framesPerSecond);
+    configurePanel(screenWidth, screenHeight);
   }
 
   public void startGameThread() {
@@ -80,6 +68,14 @@ public class GamePanel extends JPanel implements Runnable {
     g2.setColor(Color.WHITE);
     g2.fillRect(playerX, playerY, tileSize, tileSize);
     g2.dispose();
+  }
+
+  private void configurePanel(int screenWidth, int screenHeight) {
+    setPreferredSize(new Dimension(screenWidth, screenHeight));
+    setBackground(Color.BLACK);
+    setDoubleBuffered(true);
+    addKeyListener(keyboardHandler);
+    setFocusable(true);
   }
 
 }

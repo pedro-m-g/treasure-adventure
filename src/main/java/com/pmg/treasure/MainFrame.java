@@ -37,9 +37,11 @@ public class MainFrame {
   }
 
   private GamePanel buildGamePanel() {
+    int originalSize = configuration.getInt(Configuration.TILES_ORIGINAL_SIZE_PX);
+    int scaleFactor = configuration.getInt(Configuration.TILES_SCALE_FACTOR);
+    int tileSize = originalSize * scaleFactor;
     return new GamePanel(
-      configuration.getInt(Configuration.TILES_ORIGINAL_SIZE_PX),
-      configuration.getInt(Configuration.TILES_SCALE_FACTOR),
+      tileSize,
       configuration.getInt(Configuration.SCREEN_COLUMNS),
       configuration.getInt(Configuration.SCREEN_ROWS),
       configuration.getInt(Configuration.APP_FRAMES_PER_SECOND)
