@@ -1,5 +1,7 @@
 package com.pmg.treasure;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -37,15 +39,33 @@ public class MainFrame {
   }
 
   private GamePanel buildGamePanel() {
+    int tileSize = getTileSize();
+    return new GamePanel(
+        tileSize,
+        getGamePanelDimension(tileSize),
+        createKeyEventHandler(),
+        createFPSClock());
+  }
+
+  private int getTileSize() {
     int originalSize = configuration.getInt(Configuration.TILES_ORIGINAL_SIZE_PX);
     int scaleFactor = configuration.getInt(Configuration.TILES_SCALE_FACTOR);
-    int tileSize = originalSize * scaleFactor;
-    return new GamePanel(
-      tileSize,
-      configuration.getInt(Configuration.SCREEN_COLUMNS),
-      configuration.getInt(Configuration.SCREEN_ROWS),
-      configuration.getInt(Configuration.APP_FRAMES_PER_SECOND)
-    );
+    return originalSize * scaleFactor;
+  }
+
+  private Dimension getGamePanelDimension(int tileSize) {
+    int columns = configuration.getInt(Configuration.SCREEN_COLUMNS);
+    int rows = configuration.getInt(Configuration.SCREEN_ROWS);
+    return new Dimension(columns * tileSize, rows * tileSize);
+  }
+
+  private KeyEventHandler createKeyEventHandler() {
+    return new KeyEventHandler();
+  }
+
+  private FPSClock createFPSClock() {
+    int framesPerSecond = configuration.getInt(Configuration.APP_FRAMES_PER_SECOND);
+    return new FPSClock(framesPerSecond);
   }
 
 }

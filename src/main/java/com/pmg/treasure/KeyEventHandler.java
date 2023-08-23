@@ -3,7 +3,7 @@ package com.pmg.treasure;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyboardHandler implements KeyListener {
+public class KeyEventHandler implements KeyListener {
 
   private boolean upPressed = false;
   private boolean downPressed = false;
