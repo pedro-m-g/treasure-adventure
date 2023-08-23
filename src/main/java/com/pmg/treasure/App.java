@@ -3,13 +3,11 @@ package com.pmg.treasure;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-public class App
-{
+public class App {
 
     private static final String WINDOW_TITLE = "Treasure Adventure";
 
-    public static void main( String[] args )
-    {
+    public static void main(String[] args) {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setResizable(false);
