@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import com.pmg.treasure.configuration.Configuration;
+import com.pmg.treasure.events.KeyEventHandler;
 
 public class MainFrame {
 

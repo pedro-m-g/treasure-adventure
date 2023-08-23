@@ -1,14 +1,21 @@
-package com.pmg.treasure;
+package com.pmg.treasure.events;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class KeyEventHandler implements KeyListener {
 
-  private boolean upPressed = false;
-  private boolean downPressed = false;
-  private boolean leftPressed = false;
-  private boolean rightPressed = false;
+  private Map<Key, Boolean> keyMap;
+
+  public KeyEventHandler() {
+    keyMap = new EnumMap<>(Key.class);
+    keyMap.put(Key.UP, false);
+    keyMap.put(Key.DOWN, false);
+    keyMap.put(Key.LEFT, false);
+    keyMap.put(Key.RIGHT, false);
+  }
 
   @Override
   public void keyTyped(KeyEvent e) {
@@ -20,16 +27,16 @@ public class KeyEventHandler implements KeyListener {
     int code = e.getKeyCode();
 
     if (code == KeyEvent.VK_UP) {
-      upPressed = true;
+      keyMap.put(Key.UP, true);
     }
     if (code == KeyEvent.VK_DOWN) {
-      downPressed = true;
+      keyMap.put(Key.DOWN, true);
     }
     if (code == KeyEvent.VK_LEFT) {
-      leftPressed = true;
+      keyMap.put(Key.LEFT, true);
     }
     if (code == KeyEvent.VK_RIGHT) {
-      rightPressed = true;
+      keyMap.put(Key.RIGHT, true);
     }
   }
 
@@ -38,33 +45,21 @@ public class KeyEventHandler implements KeyListener {
     int code = e.getKeyCode();
 
     if (code == KeyEvent.VK_UP) {
-      upPressed = false;
+      keyMap.put(Key.UP, false);
     }
     if (code == KeyEvent.VK_DOWN) {
-      downPressed = false;
+      keyMap.put(Key.DOWN, false);
     }
     if (code == KeyEvent.VK_LEFT) {
-      leftPressed = false;
+      keyMap.put(Key.LEFT, false);
     }
     if (code == KeyEvent.VK_RIGHT) {
-      rightPressed = false;
+      keyMap.put(Key.RIGHT, false);
     }
   }
 
-  public boolean isUpPressed() {
-    return upPressed;
-  }
-
-  public boolean isDownPressed() {
-    return downPressed;
-  }
-
-  public boolean isLeftPressed() {
-    return leftPressed;
-  }
-
-  public boolean isRightPressed() {
-    return rightPressed;
+  public boolean isKeyPressed(Key keyPressed) {
+    return keyMap.get(keyPressed);
   }
 
 }

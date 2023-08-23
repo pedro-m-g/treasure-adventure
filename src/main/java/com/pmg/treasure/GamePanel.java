@@ -7,6 +7,9 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import com.pmg.treasure.events.Key;
+import com.pmg.treasure.events.KeyEventHandler;
+
 public class GamePanel extends JPanel implements Runnable {
 
   private final int tileSize;
@@ -20,10 +23,11 @@ public class GamePanel extends JPanel implements Runnable {
   private int playerSpeed = 4;
 
   public GamePanel(
-      int tileSize,
-      Dimension dimension,
-      KeyEventHandler keyboardHandler,
-      FPSClock fpsClock) {
+    int tileSize,
+    Dimension dimension,
+    KeyEventHandler keyboardHandler,
+    FPSClock fpsClock
+  ) {
     this.tileSize = tileSize;
     this.keyboardHandler = keyboardHandler;
     this.fpsClock = fpsClock;
@@ -45,16 +49,16 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   public void update() {
-    if (keyboardHandler.isUpPressed()) {
+    if (keyboardHandler.isKeyPressed(Key.UP)) {
       playerY -= playerSpeed;
     }
-    if (keyboardHandler.isDownPressed()) {
+    if (keyboardHandler.isKeyPressed(Key.DOWN)) {
       playerY += playerSpeed;
     }
-    if (keyboardHandler.isLeftPressed()) {
+    if (keyboardHandler.isKeyPressed(Key.LEFT)) {
       playerX -= playerSpeed;
     }
-    if (keyboardHandler.isRightPressed()) {
+    if (keyboardHandler.isKeyPressed(Key.RIGHT)) {
       playerX += playerSpeed;
     }
   }
