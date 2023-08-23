@@ -1,4 +1,4 @@
-package com.pmg.treasure;
+package com.pmg.treasure.configuration;
 
 import java.io.IOException;
 import java.util.Optional;

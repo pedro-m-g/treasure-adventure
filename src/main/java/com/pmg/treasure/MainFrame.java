@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import com.pmg.treasure.configuration.Configuration;
+
 public class MainFrame {
 
   private final Configuration configuration;

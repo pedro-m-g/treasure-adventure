@@ -1,4 +1,4 @@
-package com.pmg.treasure;
+package com.pmg.treasure.configuration;
 
 public class ConfigurationNotLoadedException extends RuntimeException {
 

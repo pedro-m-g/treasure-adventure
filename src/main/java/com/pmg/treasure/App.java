@@ -1,5 +1,7 @@
 package com.pmg.treasure;
 
+import com.pmg.treasure.configuration.Configuration;
+
 public class App {
 
   private static final String CONFIGURATION_FILE_NAME = "/application.properties";
