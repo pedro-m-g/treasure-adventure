@@ -1,6 +1,7 @@
 package com.pmg.treasure;
 
 import com.pmg.treasure.configuration.Configuration;
+import com.pmg.treasure.ui.MainFrame;
 
 public class App {
 

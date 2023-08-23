@@ -1,10 +1,11 @@
-package com.pmg.treasure;
+package com.pmg.treasure.ui;
 
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import com.pmg.treasure.FPSClock;
 import com.pmg.treasure.configuration.Configuration;
 import com.pmg.treasure.events.KeyEventHandler;
 

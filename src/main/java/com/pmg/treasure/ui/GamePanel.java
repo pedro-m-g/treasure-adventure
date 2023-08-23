@@ -1,4 +1,4 @@
-package com.pmg.treasure;
+package com.pmg.treasure.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import com.pmg.treasure.FPSClock;
 import com.pmg.treasure.events.Key;
 import com.pmg.treasure.events.KeyEventHandler;
 
