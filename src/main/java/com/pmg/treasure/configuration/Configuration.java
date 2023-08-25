@@ -15,6 +15,11 @@ public class Configuration {
   private static final String SCREEN_COLUMNS = "screen.columns";
   private static final String SCREEN_ROWS = "screen.rows";
 
+  private static final String PLAYER_INITIAL_POSITION_X = "player.initial_position.x";
+  private static final String PLAYER_INITIAL_POSITION_Y = "player.initial_position.y";
+  private static final String PLAYER_SPEED_X = "player.speed.x";
+  private static final String PLAYER_SPEED_Y = "player.speed.y";
+
   private Properties properties;
 
   public Configuration(String configurationFileName) {
@@ -56,6 +61,22 @@ public class Configuration {
 
   public int getScreenHeight() {
     return getScreenRows() * getTilesScaledSize();
+  }
+
+  public int getPlayerInitialPositionX() {
+    return getInt(PLAYER_INITIAL_POSITION_X);
+  }
+
+  public int getPlayerInitialPositionY() {
+    return getInt(PLAYER_INITIAL_POSITION_Y);
+  }
+
+  public int getPlayerSpeedX() {
+    return getInt(PLAYER_SPEED_X);
+  }
+
+  public int getPlayerSpeedY() {
+    return getInt(PLAYER_SPEED_Y);
   }
 
   private void loadConfigFromFile(String configurationFileName) {

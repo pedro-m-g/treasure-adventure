@@ -6,7 +6,7 @@ import com.pmg.treasure.configuration.Configuration;
 import com.pmg.treasure.events.KeyEventHandler;
 import com.pmg.treasure.ui.Scene;
 import com.pmg.treasure.ui.Stage;
-import com.pmg.treasure.ui.entities.Player;
+import com.pmg.treasure.ui.pieces.Player;
 
 public class App {
 
@@ -26,9 +26,10 @@ public class App {
     Scene scene = new Scene(dimension, keyEventHandler, fpsClock);
 
     Player player = new Player(
-      0,
-      0,
-      4,
+      configuration.getPlayerInitialPositionX(),
+      configuration.getPlayerInitialPositionY(),
+      configuration.getPlayerSpeedX(),
+      configuration.getPlayerSpeedY(),
       configuration.getTilesScaledSize(),
       keyEventHandler
     );

@@ -1,4 +1,4 @@
-package com.pmg.treasure.ui.entities;
+package com.pmg.treasure.ui.pieces;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -6,25 +6,27 @@ import java.awt.Graphics2D;
 import com.pmg.treasure.events.Key;
 import com.pmg.treasure.events.KeyEventHandler;
 
-public class Player implements Entity {
+public class Player implements GamePiece {
 
   private final KeyEventHandler keyEventHandler;
 
   private int x;
   private int y;
-  private int speed;
+  private int speedX;
+  private int speedY;
   private int tileSize;
 
   public Player(
-    int initialX,
-    int initialY,
-    int speed,
-    int tileSize,
-    KeyEventHandler keyEventHandler
-  ) {
+      int initialX,
+      int initialY,
+      int speedX,
+      int speedY,
+      int tileSize,
+      KeyEventHandler keyEventHandler) {
     this.x = initialX;
     this.y = initialY;
-    this.speed = speed;
+    this.speedX = speedX;
+    this.speedY = speedY;
     this.tileSize = tileSize;
     this.keyEventHandler = keyEventHandler;
   }
@@ -32,16 +34,16 @@ public class Player implements Entity {
   @Override
   public void update() {
     if (keyEventHandler.isKeyPressed(Key.UP)) {
-      y -= speed;
+      y -= speedY;
     }
     if (keyEventHandler.isKeyPressed(Key.DOWN)) {
-      y += speed;
+      y += speedY;
     }
     if (keyEventHandler.isKeyPressed(Key.LEFT)) {
-      x -= speed;
+      x -= speedX;
     }
     if (keyEventHandler.isKeyPressed(Key.RIGHT)) {
-      x += speed;
+      x += speedX;
     }
   }
 

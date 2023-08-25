@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import com.pmg.treasure.FPSClock;
 import com.pmg.treasure.events.KeyEventHandler;
-import com.pmg.treasure.ui.entities.Entity;
+import com.pmg.treasure.ui.pieces.GamePiece;
 
 public class Scene extends JPanel implements Runnable {
 
@@ -19,26 +19,22 @@ public class Scene extends JPanel implements Runnable {
   private final transient KeyEventHandler keyboardHandler;
   private final transient FPSClock fpsClock;
 
-  private final transient List<Entity> entities;
+  private final transient List<GamePiece> gamePieces;
 
   public Scene(
-      Dimension dimension,
-      KeyEventHandler keyboardHandler,
-      FPSClock fpsClock) {
+    Dimension dimension,
+    KeyEventHandler keyboardHandler,
+    FPSClock fpsClock
+  ) {
     this.keyboardHandler = keyboardHandler;
     this.fpsClock = fpsClock;
-    this.entities = new ArrayList<>();
+    this.gamePieces = new ArrayList<>();
     configurePanel(dimension);
     startGameThread();
   }
 
-  public void add(Entity entity) {
-    entities.add(entity);
-  }
-
-  private void startGameThread() {
-    gameThread = new Thread(this);
-    gameThread.start();
+  public void add(GamePiece gamePiece) {
+    gamePieces.add(gamePiece);
   }
 
   @Override
@@ -51,14 +47,14 @@ public class Scene extends JPanel implements Runnable {
   }
 
   public void update() {
-    entities.stream().forEach(Entity::update);
+    gamePieces.stream().forEach(GamePiece::update);
   }
 
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    entities.stream().forEach(entity -> entity.render(g2));
+    gamePieces.stream().forEach(entity -> entity.render(g2));
     g2.dispose();
   }
 
@@ -68,6 +64,11 @@ public class Scene extends JPanel implements Runnable {
     setDoubleBuffered(true);
     addKeyListener(keyboardHandler);
     setFocusable(true);
+  }
+
+  private void startGameThread() {
+    gameThread = new Thread(this);
+    gameThread.start();
   }
 
 }
