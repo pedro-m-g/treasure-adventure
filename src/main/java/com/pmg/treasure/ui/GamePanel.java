@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     startGameThread();
   }
 
-  public void addEntity(Entity entity) {
+  public void add(Entity entity) {
     entities.add(entity);
   }
 
