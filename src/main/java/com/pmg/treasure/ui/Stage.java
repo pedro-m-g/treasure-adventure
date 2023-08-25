@@ -24,4 +24,8 @@ public class Stage {
     window.setVisible(true);
   }
 
+  public Scene getScene() {
+    return scene;
+  }
+
 }

@@ -1,4 +1,4 @@
-package com.pmg.treasure;
+package com.pmg.treasure.ui;
 
 public class FPSClock {
 
