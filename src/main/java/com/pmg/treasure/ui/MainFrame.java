@@ -7,14 +7,17 @@ import javax.swing.WindowConstants;
 
 import com.pmg.treasure.FPSClock;
 import com.pmg.treasure.configuration.Configuration;
+import com.pmg.treasure.entities.Player;
 import com.pmg.treasure.events.KeyEventHandler;
 
 public class MainFrame {
 
   private final Configuration configuration;
+  private final KeyEventHandler keyEventHandler;
 
-  public MainFrame(Configuration configuration) {
+  public MainFrame(Configuration configuration, KeyEventHandler keyEventHandler) {
     this.configuration = configuration;
+    this.keyEventHandler = keyEventHandler;
   }
 
   public void start() {
@@ -31,6 +34,8 @@ public class MainFrame {
     window.setLocationRelativeTo(null);
     window.setVisible(true);
 
+    addEntities(gamePanel);
+
     gamePanel.startGameThread();
   }
 
@@ -45,9 +50,8 @@ public class MainFrame {
   private GamePanel buildGamePanel() {
     int tileSize = getTileSize();
     return new GamePanel(
-        tileSize,
         getGamePanelDimension(tileSize),
-        createKeyEventHandler(),
+        keyEventHandler,
         createFPSClock());
   }
 
@@ -63,13 +67,14 @@ public class MainFrame {
     return new Dimension(columns * tileSize, rows * tileSize);
   }
 
-  private KeyEventHandler createKeyEventHandler() {
-    return new KeyEventHandler();
-  }
-
   private FPSClock createFPSClock() {
     int framesPerSecond = configuration.getInt(Configuration.APP_FRAMES_PER_SECOND);
     return new FPSClock(framesPerSecond);
+  }
+
+  private void addEntities(GamePanel gamePanel) {
+    Player player = new Player(0, 0, 4, getTileSize(), keyEventHandler);
+    gamePanel.addEntity(player);
   }
 
 }

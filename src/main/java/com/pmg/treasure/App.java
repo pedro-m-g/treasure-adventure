@@ -1,6 +1,7 @@
 package com.pmg.treasure;
 
 import com.pmg.treasure.configuration.Configuration;
+import com.pmg.treasure.events.KeyEventHandler;
 import com.pmg.treasure.ui.MainFrame;
 
 public class App {
@@ -9,7 +10,8 @@ public class App {
 
   public static void main(String[] args) {
     Configuration configuration = new Configuration(CONFIGURATION_FILE_NAME);
-    MainFrame mainFrame = new MainFrame(configuration);
+    KeyEventHandler keyEventHandler = new KeyEventHandler();
+    MainFrame mainFrame = new MainFrame(configuration, keyEventHandler);
     mainFrame.start();
   }
 

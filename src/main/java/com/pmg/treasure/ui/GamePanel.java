@@ -4,35 +4,36 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 import com.pmg.treasure.FPSClock;
-import com.pmg.treasure.events.Key;
+import com.pmg.treasure.entities.Entity;
 import com.pmg.treasure.events.KeyEventHandler;
 
 public class GamePanel extends JPanel implements Runnable {
-
-  private final int tileSize;
 
   private transient Thread gameThread;
   private final transient KeyEventHandler keyboardHandler;
   private final transient FPSClock fpsClock;
 
-  private int playerX = 100;
-  private int playerY = 100;
-  private int playerSpeed = 4;
+  private final transient List<Entity> entities;
 
   public GamePanel(
-    int tileSize,
     Dimension dimension,
     KeyEventHandler keyboardHandler,
     FPSClock fpsClock
   ) {
-    this.tileSize = tileSize;
     this.keyboardHandler = keyboardHandler;
     this.fpsClock = fpsClock;
+    this.entities = new ArrayList<>();
     configurePanel(dimension);
+  }
+
+  public void addEntity(Entity entity) {
+    entities.add(entity);
   }
 
   public void startGameThread() {
@@ -50,27 +51,14 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   public void update() {
-    if (keyboardHandler.isKeyPressed(Key.UP)) {
-      playerY -= playerSpeed;
-    }
-    if (keyboardHandler.isKeyPressed(Key.DOWN)) {
-      playerY += playerSpeed;
-    }
-    if (keyboardHandler.isKeyPressed(Key.LEFT)) {
-      playerX -= playerSpeed;
-    }
-    if (keyboardHandler.isKeyPressed(Key.RIGHT)) {
-      playerX += playerSpeed;
-    }
+    entities.stream().forEach(Entity::update);
   }
 
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-
     Graphics2D g2 = (Graphics2D) g;
-    g2.setColor(Color.WHITE);
-    g2.fillRect(playerX, playerY, tileSize, tileSize);
+    entities.stream().forEach(entity -> entity.render(g2));
     g2.dispose();
   }
 
