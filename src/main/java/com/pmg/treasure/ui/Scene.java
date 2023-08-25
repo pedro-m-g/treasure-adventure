@@ -10,10 +10,10 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import com.pmg.treasure.FPSClock;
-import com.pmg.treasure.entities.Entity;
 import com.pmg.treasure.events.KeyEventHandler;
+import com.pmg.treasure.ui.entities.Entity;
 
-public class GamePanel extends JPanel implements Runnable {
+public class Scene extends JPanel implements Runnable {
 
   private transient Thread gameThread;
   private final transient KeyEventHandler keyboardHandler;
@@ -21,11 +21,10 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final transient List<Entity> entities;
 
-  public GamePanel(
-    Dimension dimension,
-    KeyEventHandler keyboardHandler,
-    FPSClock fpsClock
-  ) {
+  public Scene(
+      Dimension dimension,
+      KeyEventHandler keyboardHandler,
+      FPSClock fpsClock) {
     this.keyboardHandler = keyboardHandler;
     this.fpsClock = fpsClock;
     this.entities = new ArrayList<>();

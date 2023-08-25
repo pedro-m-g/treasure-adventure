@@ -3,10 +3,10 @@ package com.pmg.treasure;
 import java.awt.Dimension;
 
 import com.pmg.treasure.configuration.Configuration;
-import com.pmg.treasure.entities.Player;
 import com.pmg.treasure.events.KeyEventHandler;
-import com.pmg.treasure.ui.GamePanel;
-import com.pmg.treasure.ui.MainFrame;
+import com.pmg.treasure.ui.Scene;
+import com.pmg.treasure.ui.Stage;
+import com.pmg.treasure.ui.entities.Player;
 
 public class App {
 
@@ -15,29 +15,27 @@ public class App {
   public static void main(String[] args) {
     Configuration configuration = new Configuration(CONFIGURATION_FILE_NAME);
 
-    String title = configuration.getString(Configuration.APP_TITLE);
-
-    int screenColumns = configuration.getInt(Configuration.SCREEN_COLUMNS);
-    int screenRows = configuration.getInt(Configuration.SCREEN_ROWS);
-    int originalTileSize = configuration.getInt(Configuration.TILES_ORIGINAL_SIZE_PX);
-    int tileScaleFactor = configuration.getInt(Configuration.TILES_SCALE_FACTOR);
-    int tileSize = originalTileSize * tileScaleFactor;
-    int screenWidth = screenColumns * tileSize;
-    int screenHeight = screenRows * tileSize;
-    Dimension dimension = new Dimension(screenWidth, screenHeight);
-
+    String title = configuration.getTitle();
+    Dimension dimension = new Dimension(
+      configuration.getScreenWidth(),
+      configuration.getScreenHeight()
+    );
     KeyEventHandler keyEventHandler = new KeyEventHandler();
+    FPSClock fpsClock = new FPSClock(configuration.getFramesPerSecond());
 
-    int framesPerSecond = configuration.getInt(Configuration.APP_FRAMES_PER_SECOND);
-    FPSClock fpsClock = new FPSClock(framesPerSecond);
+    Scene scene = new Scene(dimension, keyEventHandler, fpsClock);
 
-    GamePanel gamePanel = new GamePanel(dimension, keyEventHandler, fpsClock);
+    Player player = new Player(
+      0,
+      0,
+      4,
+      configuration.getTilesScaledSize(),
+      keyEventHandler
+    );
+    scene.add(player);
 
-    Player player = new Player(0, 0, 4, tileSize, keyEventHandler);
-    gamePanel.add(player);
-
-    MainFrame mainFrame = new MainFrame(title, gamePanel);
-    mainFrame.start();
+    Stage stage = new Stage(title, scene);
+    stage.start();
   }
 
 }

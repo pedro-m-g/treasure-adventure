@@ -3,14 +3,14 @@ package com.pmg.treasure.ui;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-public class MainFrame {
+public class Stage {
 
   private final String title;
-  private final GamePanel gamePanel;
+  private final Scene scene;
 
-  public MainFrame(String title, GamePanel gamePanel) {
+  public Stage(String title, Scene scene) {
     this.title = title;
-    this.gamePanel = gamePanel;
+    this.scene = scene;
   }
 
   public void start() {
@@ -18,7 +18,7 @@ public class MainFrame {
     window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     window.setResizable(false);
     window.setTitle(title);
-    window.add(gamePanel);
+    window.add(scene);
     window.pack();
     window.setLocationRelativeTo(null);
     window.setVisible(true);

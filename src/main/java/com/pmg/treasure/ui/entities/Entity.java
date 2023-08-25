@@ -1,4 +1,4 @@
-package com.pmg.treasure.entities;
+package com.pmg.treasure.ui.entities;
 
 import java.awt.Graphics2D;
 

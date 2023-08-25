@@ -6,18 +6,56 @@ import java.util.Properties;
 
 public class Configuration {
 
-  public static final String APP_TITLE = "app.title";
-  public static final String APP_FRAMES_PER_SECOND = "app.frames_per_second";
-  public static final String TILES_ORIGINAL_SIZE_PX = "tiles.original_size_px";
-  public static final String TILES_SCALE_FACTOR = "tiles.scale_factor";
-  public static final String SCREEN_COLUMNS = "screen.columns";
-  public static final String SCREEN_ROWS = "screen.rows";
+  private static final String APP_TITLE = "app.title";
+  private static final String APP_FRAMES_PER_SECOND = "app.frames_per_second";
+
+  private static final String TILES_ORIGINAL_SIZE = "tiles.original_size";
+  private static final String TILES_SCALE_FACTOR = "tiles.scale_factor";
+
+  private static final String SCREEN_COLUMNS = "screen.columns";
+  private static final String SCREEN_ROWS = "screen.rows";
 
   private Properties properties;
 
   public Configuration(String configurationFileName) {
     properties = new Properties();
     loadConfigFromFile(configurationFileName);
+  }
+
+  public String getTitle() {
+    return getString(APP_TITLE);
+  }
+
+  public int getFramesPerSecond() {
+    return getInt(APP_FRAMES_PER_SECOND);
+  }
+
+  public int getTilesOriginalSize() {
+    return getInt(TILES_ORIGINAL_SIZE);
+  }
+
+  public int getTilesScaleFactor() {
+    return getInt(TILES_SCALE_FACTOR);
+  }
+
+  public int getTilesScaledSize() {
+    return getTilesOriginalSize() * getTilesScaleFactor();
+  }
+
+  public int getScreenColumns() {
+    return getInt(SCREEN_COLUMNS);
+  }
+
+  public int getScreenRows() {
+    return getInt(SCREEN_ROWS);
+  }
+
+  public int getScreenWidth() {
+    return getScreenColumns() * getTilesScaledSize();
+  }
+
+  public int getScreenHeight() {
+    return getScreenRows() * getTilesScaledSize();
   }
 
   private void loadConfigFromFile(String configurationFileName) {
@@ -28,13 +66,13 @@ public class Configuration {
     }
   }
 
-  public String getString(String key) {
+  private String getString(String key) {
     return Optional.ofNullable(properties.getProperty(key))
         .map(Object::toString)
         .orElseThrow(() -> new ConfigurationKeyNotFoundException(key));
   }
 
-  public int getInt(String key) {
+  private int getInt(String key) {
     return Optional.ofNullable(properties.getProperty(key))
         .map(Object::toString)
         .map(Integer::parseInt)
