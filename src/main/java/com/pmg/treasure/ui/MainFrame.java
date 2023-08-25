@@ -12,17 +12,17 @@ import com.pmg.treasure.events.KeyEventHandler;
 
 public class MainFrame {
 
+  private final String title;
   private final Configuration configuration;
   private final KeyEventHandler keyEventHandler;
 
-  public MainFrame(Configuration configuration, KeyEventHandler keyEventHandler) {
+  public MainFrame(String title, Configuration configuration, KeyEventHandler keyEventHandler) {
+    this.title = title;
     this.configuration = configuration;
     this.keyEventHandler = keyEventHandler;
   }
 
   public void start() {
-    String title = configuration.getString(Configuration.APP_TITLE);
-
     JFrame window = buildMainWindow();
     window.setTitle(title);
 
@@ -33,10 +33,6 @@ public class MainFrame {
 
     window.setLocationRelativeTo(null);
     window.setVisible(true);
-
-    addEntities(gamePanel);
-
-    gamePanel.startGameThread();
   }
 
   private JFrame buildMainWindow() {
@@ -49,10 +45,13 @@ public class MainFrame {
 
   private GamePanel buildGamePanel() {
     int tileSize = getTileSize();
-    return new GamePanel(
-        getGamePanelDimension(tileSize),
-        keyEventHandler,
-        createFPSClock());
+    GamePanel gamePanel = new GamePanel(
+      getGamePanelDimension(tileSize),
+      keyEventHandler,
+      createFPSClock()
+    );
+    addEntities(gamePanel);
+    return gamePanel;
   }
 
   private int getTileSize() {

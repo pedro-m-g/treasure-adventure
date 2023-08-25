@@ -11,7 +11,11 @@ public class App {
   public static void main(String[] args) {
     Configuration configuration = new Configuration(CONFIGURATION_FILE_NAME);
     KeyEventHandler keyEventHandler = new KeyEventHandler();
-    MainFrame mainFrame = new MainFrame(configuration, keyEventHandler);
+    MainFrame mainFrame = new MainFrame(
+      configuration.getString(Configuration.APP_TITLE),
+      configuration,
+      keyEventHandler
+    );
     mainFrame.start();
   }
 

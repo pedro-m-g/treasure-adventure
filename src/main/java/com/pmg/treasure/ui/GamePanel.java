@@ -30,13 +30,14 @@ public class GamePanel extends JPanel implements Runnable {
     this.fpsClock = fpsClock;
     this.entities = new ArrayList<>();
     configurePanel(dimension);
+    startGameThread();
   }
 
   public void addEntity(Entity entity) {
     entities.add(entity);
   }
 
-  public void startGameThread() {
+  private void startGameThread() {
     gameThread = new Thread(this);
     gameThread.start();
   }
